@@ -1,0 +1,141 @@
+/*
+//Name: Ryan DeLosh, ryan_delosh@student.uml.edu
+//Computer Science Department, UMass Lowell Comp.4610, GUI Programming I
+//File: /usr/cs/2018/rdelosh/public_html/hw4 Created: 12-Nov-2017
+//Last updated by RD: 12-Nov-2017
+//Built using ReactJS Library version 16.0.0
+//
+//I decided to use ReactJS for this assignment because I wanted to learn 
+//it and get some hands on experience with it. A lot of Javascript development
+//in the field is switching to React and I felt like I should learn it for
+//a better start out in the job world. Along with becoming a new industry standard
+//React is a very powerful library that make it easy to make some very powerful sites.
+//React is also very friendly with other libraries and frameworks, It is all around useful.
+// ReactJS Library documentation: https://reactjs.org/docs/installation.html
+//Bootstrap documentation: https://getbootstrap.com/docs/4.0/getting-started/introduction/
+//
+//-------HOW TO COMPILE AND RUN-------
+//To run this program it first needs to be built into a file that can be executed on a server or local machine.
+//To start this navigate to the directory containing the src and public folder
+//from there make sure you have NPM installed, directions to install it are here: http://blog.npmjs.org/post/85484771375/how-to-install-npm
+//after npm is installed type in npm install
+//then npm run
+//this will execute a development build on your local system. If you want to publish the app to a web host instead of running npm start type in npm build and that will build a production version of the app.
+*/
+
+.table-header {
+  background-color:rgb(69, 128, 240);
+  color:white;
+}
+.content {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.entry-form {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  float: center; /* Hidden by default */
+  text-align: center;
+  justify-content: center;
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
+}
+.btns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+}
+.ctr {
+<<<<<<< Updated upstream
+    text-align: center;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+=======
+  text-align: center;
+  justify-content: center;
+  width: 100%;
+  align-items: center;
+>>>>>>> Stashed changes
+}
+
+.entry-form form {
+  width: 500px;
+  margin-top: 200px;
+  text-align:left;
+  color:white;
+}
+.entry-form:first-child {
+  width:70%;
+  min-width:200px;
+}
+
+.error {
+  border-style: solid;
+  border-width: 1px;
+  border-color: red;
+}
+.errorBox{
+  color:#ff0000; 
+  width: 100%;
+}
+
+.show {
+  visibility: visible;
+}
+.hide {
+<<<<<<< Updated upstream
+    visibility: hidden;
+=======
+  visibility: hidden;
+}
+.first-form {
+  width: 20%;
+  min-width: 300px;
+}
+input.my-error-class {
+  width: 100%;
+  border-style: solid;
+  border-width: 1px;
+  border-color: firebrick;
+  border-radius: 2px;
+  box-shadow: -1px -1px 5px firebrick;
+}
+label.my-error-class {
+  width: 100%;
+  border-style: solid;
+  border-width: 1px;
+  border-color: firebrick;
+  border-radius: 2px;
+  background-color: firebrick;
+  color: white;
+  box-shadow: -1px 1px 5px firebrick;
+}
+input.my-valid-class {
+  border-color: chartreuse;
+  border-width: 1px;
+  border-style: solid;
+  box-shadow: -1px -1px 5px chartreuse;
+>>>>>>> Stashed changes
+}

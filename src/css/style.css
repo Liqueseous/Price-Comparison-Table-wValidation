@@ -67,17 +67,10 @@
   text-align: center;
 }
 .ctr {
-<<<<<<< Updated upstream
-    text-align: center;
-    justify-content: center;
-    width: 100%;
-    text-align: center;
-=======
   text-align: center;
   justify-content: center;
   width: 100%;
   align-items: center;
->>>>>>> Stashed changes
 }
 
 .entry-form form {
@@ -105,9 +98,6 @@
   visibility: visible;
 }
 .hide {
-<<<<<<< Updated upstream
-    visibility: hidden;
-=======
   visibility: hidden;
 }
 .first-form {
@@ -137,5 +127,4 @@ input.my-valid-class {
   border-width: 1px;
   border-style: solid;
   box-shadow: -1px -1px 5px chartreuse;
->>>>>>> Stashed changes
 }

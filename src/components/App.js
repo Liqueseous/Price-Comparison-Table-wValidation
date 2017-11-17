@@ -131,8 +131,6 @@ class App extends Component {
 
   //when a value is changed it will be updated in its state.
   onChange = (e) => {
-<<<<<<< Updated upstream
-=======
     const el = findDOMNode(this.refs.mainForm);
     const but = findDOMNode(this.refs.but);
 
@@ -157,7 +155,6 @@ class App extends Component {
      } else {
        $(but).prop('disabled', true);   // disables button
      }
->>>>>>> Stashed changes
     this.setState({
       [e.target.name]: [e.target.value]
     })
@@ -187,18 +184,6 @@ class App extends Component {
 						</span>
             </div>
             <div className="form-group">
-<<<<<<< Updated upstream
-						  <label htmlFor="PPG">Price Per Gallon:</label>
-              <input className={`form-control ${errors.PPG ? "error" : ""}`} value={this.state.PPG} onChange={this.onChange} name="PPG" id="PPG" type="text" placeholder="Price Per Gallon" required/>
-              <span className={`errorBox ${errors.PPG ? "show" : "hide"}`}>
-							<span role="img">❌</span> Price per gallon must be above $0
-						</span>
-            </div>
-          </form>
-          
-          <button className="btn btn-primary btn-lg" onClick={this.clicked} disabled={!isEnabled}>Add Entry</button>
-            {this.state.formShow ? <Form createEntry={this.createEntry} clicked={this.clicked} /> :<p></p>}
-=======
               <label htmlFor="PPG">Price Per Gallon:</label>
               <input className={`form-control`} value={this.state.PPG} onChange={this.onChange} name="PPG" id="PPG" type="text" placeholder="Price Per Gallon" required/>
             </div>
@@ -207,7 +192,6 @@ class App extends Component {
             <button className="btn btn-primary btn-lg" ref="but" onClick={this.clicked} >Add Entry</button>
           </div>
           {this.state.formShow ? <Form createEntry={this.createEntry} clicked={this.clicked} /> :<p></p>}
->>>>>>> Stashed changes
           
           <div className="alert alert-info">
             <strong>Info!</strong> Verticle column represents MPG, horizontal row represents total cost of vehicle.

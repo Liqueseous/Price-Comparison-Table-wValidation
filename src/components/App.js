@@ -1,7 +1,7 @@
 //
 //Name: Ryan DeLosh, ryan_delosh@student.uml.edu
 //Computer Science Department, UMass Lowell Comp.4610, GUI Programming I
-//File: /usr/cs/2018/rdelosh/public_html/hw4 Created: 12-Nov-2017
+//File: /usr/cs/2018/rdelosh/public_html/461f2017/hw5 Created: 18-Nov-2017
 //Last updated by RD: 12-Nov-2017
 //Built using ReactJS Library version 16.0.0
 //
@@ -11,8 +11,15 @@
 //a better start out in the job world. Along with becoming a new industry standard
 //React is a very powerful library that make it easy to make some very powerful sites.
 //React is also very friendly with other libraries and frameworks, It is all around useful.
-// ReactJS Library documentation: https://reactjs.org/docs/installation.html
+//I use JQuery which I managed to get to work with ReactJS, it is not optimal to use JQuery in 
+//ReactJS but since the assignment requires it I managed to get it working and JQuery Validation to
+//work with ReactJS.
+//
+//ReactJS Library documentation: https://reactjs.org/docs/installation.html
 //Bootstrap documentation: https://getbootstrap.com/docs/4.0/getting-started/introduction/
+//JQuery Documentation: https://api.jquery.com/
+//JQuery Validation Documentation: https://jqueryvalidation.org/documentation/
+//
 //
 //-------HOW TO COMPILE AND RUN-------
 //To run this program it first needs to be built into a file that can be executed on a server or local machine.
@@ -25,6 +32,9 @@
 
 
 import React, { Component } from 'react';
+import { findDOMNode } from 'react-dom';
+import $ from 'jquery';
+import Validation from 'jquery-validation';
 import Table from './table';
 import Form from './form';
 import '../css/App.css';
@@ -90,32 +100,9 @@ class App extends Component {
       return vari;
     }
   }
-
-  //Validates our input fields for Miles per year and Price per Gallon. We want to make sure there is a value inputted and that it is a number that is positive/non zero.
-  //One issue is this isnt checked upon render so the button is still active, this is a bug that I havent been able to iron out yet.
-  validate(MPY, PPG) {
-		let decimal=  /^[0-9]*\.?[0-9]*$/;
-		let MPYError = true;
-		let PPGError = true;
-		if (MPY[0] === "" || MPY === 0 || !decimal.test(MPY) || MPY === null){ 
-			MPYError = true
-		} else {
-			MPYError = false
-		}
-		if (PPG[0] === "" || PPG === 0 ||!decimal.test(PPG) || PPG === null ){ 
-			PPGError = true
-		} else {
-			PPGError = false
-		}
-		return{
-			MPY: MPYError,
-			PPG: PPGError,
-		};
-  }
   
   //renders our form once the button is clicked
   clicked = (e) => {
-    e.preventDefault();
     this.setState({formShow: !this.state.formShow});
   }
   
@@ -125,15 +112,21 @@ class App extends Component {
     myCosts.push(cost);
     const myMPGs = this.state.MPGs;
     myMPGs.push(MPG);
-
+    
     this.setState({ costs:myCosts, MPGs:myMPGs });
   }
 
   //when a value is changed it will be updated in its state.
   onChange = (e) => {
+    //Add a not equal to validation method
+    $.validator.addMethod("notEqual", function(value, element, param) {
+      return this.optional(element) || value != param;
+    }, "Please specify a different (non-zero) value");
+    //Finds the node modules that need to be altered using jQuery Validation
     const el = findDOMNode(this.refs.mainForm);
     const but = findDOMNode(this.refs.but);
 
+    //Setup our validation rules and make sure the form validates to these rules
     $(el).validate({
       errorClass: "my-error-class",
       validClass: "my-valid-class",
@@ -149,7 +142,7 @@ class App extends Component {
           notEqual: 0,
      }
     }});
-
+    //disables button if the input is not valid
     if ($(el).valid()) {                   // checks form for validity
       $(but).prop('disabled', false);        // enables button
      } else {
@@ -162,10 +155,6 @@ class App extends Component {
   }
 
   render() {
-    //Calls validate and will return an object with any errors we have
-    const errors = this.validate(this.state.MPY, this.state.PPG);
-		const isEnabled = !Object.keys(errors).some(x => errors[x]);
-    
     //This contains our main form along with error indications. Below that is our entry form which when displayed overlays the screen.
     //Below all this is our table of values
     //I cannot comment within the return value that is why there are none lower than this.
@@ -175,17 +164,14 @@ class App extends Component {
           <h1 className="App-title">Car Comparison Table</h1>
         </header>
         <div className="content">
-          <form>
+          <form ref="mainForm">
             <div className="form-group">
               <label htmlFor="MPY">Miles Per Year:</label>
-              <input className={`form-control ${errors.MPY ? "error" : ""}`} value={this.state.MPY} onChange={this.onChange} name="MPY" id="MPY" type="text" placeholder="Miles Per Year" required/>
-              <span className={`errorBox ${errors.MPY ? "show" : "hide"}`}>
-							<span role="img">❌</span> Mileage per year must be above 0
-						</span>
+              <input className="form-control" value={this.state.MPY} onChange={this.onChange} name="MPY" id="MPY" type="text" placeholder="Miles Per Year" required/>
             </div>
             <div className="form-group">
               <label htmlFor="PPG">Price Per Gallon:</label>
-              <input className={`form-control`} value={this.state.PPG} onChange={this.onChange} name="PPG" id="PPG" type="text" placeholder="Price Per Gallon" required/>
+              <input className="form-control" value={this.state.PPG} onChange={this.onChange} name="PPG" id="PPG" type="text" placeholder="Price Per Gallon" required/>
             </div>
           </form>
           <div className="ctr">

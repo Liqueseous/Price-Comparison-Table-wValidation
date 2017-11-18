@@ -5,7 +5,7 @@ Computer Science Department, UMass Lowell Comp.4610, GUI Programming I
 
 File: /usr/cs/2018/rdelosh/public_html/461f2017/hw5 
 
-Created: 12-Nov-2017
+Created: 18-Nov-2017
 
 Last updated by RD: 16-Nov-2017
 
@@ -18,9 +18,17 @@ a better start out in the job world. Along with becoming a new industry standard
 React is a very powerful library that make it easy to make some very powerful sites.
 React is also very friendly with other libraries and frameworks, It is all around useful.
 
+I use JQuery which I managed to get to work with ReactJS, it is not optimal to use JQuery in 
+ReactJS but since the assignment requires it I managed to get it working and JQuery Validation to
+work with ReactJS.
+
 ReactJS Library documentation: [ReactJS](https://reactjs.org/docs/installation.html)
 
 Bootstrap documentation: [Bootstrap 4](https://getbootstrap.com/docs/4.0/getting-started/introduction/)
+
+JQuery Documentation: [JQuery](https://api.jquery.com/)
+
+JQuery Validation Documentation: [JQuery Validation](https://jqueryvalidation.org/documentation/)
 
 -------HOW TO COMPILE AND RUN-------
 

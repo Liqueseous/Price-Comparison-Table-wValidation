@@ -43,8 +43,8 @@ class table extends Component {
     //I cannot comment within the return value that is why there are none lower than this.
     //displays the table for the user to see
     return(
-      <div>
-       <div className="alert alert-info">
+      <div className="panel panel-info">
+       <div className="panel-heading">
         <strong>Info!</strong> Verticle column represents MPG, horizontal row represents total cost of vehicle.
        </div>
         <table className="table table-hover table-bordered table-condensed table-responsive">

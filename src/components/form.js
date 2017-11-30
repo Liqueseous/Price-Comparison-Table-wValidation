@@ -112,14 +112,14 @@ class form extends Component {
           <div className="form-group">
             <label htmlFor="cost">Cost of Vehicle:</label>
             <input className={`form-control`} value={this.state.cost} onChange={this.onChange} name="cost" id="cost" type="text" placeholder="Cost *" />
-            <Slider defaultValue={this.state.cost} min={1} max={100000} step={1000} onAfterChange={(e) => {
+            <Slider value={this.state.cost} min={1} max={100000} step={1000} onChange={(e) => {
               this.setState({cost: [e]})
             }}/> 
           </div>
           <div className="form-group">
             <label htmlFor="MPG">Fuel Mileage:</label>
             <input className={`form-control`} value={this.state.MPG} onChange={this.onChange} name="MPG" id="MPG" type="text" placeholder="MPG *" />
-            <Slider defaultValue={this.state.MPG} min={1} max={40} step={1} onAfterChange={(e) => {
+            <Slider value={this.state.MPG} min={1} max={40} step={1} onChange={(e) => {
               this.setState({MPG: [e]})
             }}/> 
           </div>

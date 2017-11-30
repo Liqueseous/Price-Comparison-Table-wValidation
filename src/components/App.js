@@ -65,8 +65,8 @@ class App extends Component {
       gear: [],
       other: [],
       formshow:false,
-      MPY: '',
-      PPG: '',
+      MPY: ``,
+      PPG: ``,
       tabIndex: 0,
     };
   }
@@ -127,6 +127,10 @@ class App extends Component {
     $.validator.addMethod("greaterThan", function(value, element, param) {
       return this.optional(element) || value > param;
     }, "Please specify a positive value");
+    //Adds a less than validation method
+    $.validator.addMethod("lessThan", function(value, element, param) {
+      return this.optional(element) || value < param;
+    }, "Value too big");
     //Finds the node modules that need to be altered using jQuery Validation
     const el = findDOMNode(this.refs.mainForm);
 
@@ -139,12 +143,14 @@ class App extends Component {
           required: true,
           number: true,
           greaterThan: 0,
+          lessThan: 100001,
           notEqual: 0,
       },
         PPG: {
           required: true,
           number: true,
           greaterThan: 0,
+          lessThan: 6,
           notEqual: 0,
       }
     }});
@@ -186,6 +192,10 @@ class App extends Component {
     $.validator.addMethod("greaterThan", function(value, element, param) {
       return this.optional(element) || value > param;
     }, "Please specify a positive value");
+    //Adds a less than validation method
+    $.validator.addMethod("lessThan", function(value, element, param) {
+      return this.optional(element) || value < param;
+    }, "Value too big");
     //Finds the node modules that need to be altered using jQuery Validation
     const el = findDOMNode(this.refs.mainForm);
 
@@ -198,12 +208,14 @@ class App extends Component {
           required: true,
           number: true,
           greaterThan: 0,
+          lessThan: 100001,
           notEqual: 0,
       },
         PPG: {
           required: true,
           number: true,
           greaterThan: 0,
+          lessThan: 6,
           notEqual: 0,
       }
     }});
@@ -225,21 +237,21 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <h1 className="App-title">Car Inspector</h1>
-          <img src={logo} className="App-logo"/>
+          <img src={logo} className="App-logo" alt="logo"/>
         </header>
         <div className="content">
           <form ref="mainForm">
             <div className="form-group">
               <label htmlFor="MPY">Miles Per Year:</label>
-              <input className="form-control" value={this.state.MPY} onChange={this.onChange} name="MPY" id="MPY" type="text" placeholder="Miles Per Year *" required/>
-              <Slider value={this.state.MPY} min={1} max={100000} step={1000} onChange={(e) => {
+              <input className="form-control" value={this.state.MPY} onChange={this.onChange} name="MPY" id="MPY" type="number" placeholder="Miles Per Year *" required/>
+              <Slider value={this.state.MPY} min={0} max={100000} step={1000} onChange={(e) => {
                 this.setState({MPY: [e]})
               }} /> 
             </div>
             <div className="form-group">
               <label htmlFor="PPG">Price Per Gallon:</label>
-              <input className="form-control" value={this.state.PPG} onChange={this.onChange} name="PPG" id="PPG" type="text" placeholder="Price Per Gallon *" required/>
-              <Slider value={this.state.PPG} min={1} max={5} step={0.1} onChange={(e) => {
+              <input className="form-control" value={this.state.PPG} onChange={this.onChange} name="PPG" id="PPG" type="number" placeholder="Price Per Gallon *" required/>
+              <Slider value={this.state.PPG} min={0} max={5} step={0.1} onChange={(e) => {
                 this.setState({PPG: [e]})
               }}/> 
             </div>

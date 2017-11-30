@@ -73,6 +73,10 @@ class form extends Component {
     $.validator.addMethod("greaterThan", function(value, element, param) {
       return this.optional(element) || value > param;
     }, "Please specify a positive value");
+    //Adds a less than validation method
+    $.validator.addMethod("lessThan", function(value, element, param) {
+      return this.optional(element) || value < param;
+    }, "Value too big");
     //Finds the node modules that need to be altered using jQuery Validation
     const el = findDOMNode(this.refs.entryForm);
 
@@ -85,12 +89,14 @@ class form extends Component {
           required: true,
           number: true,
           greaterThan: 0,
+          lessThan: 100001,
           notEqual: 0,
       },
         MPG: {
           required: true,
           number: true,
           greaterThan: 0,
+          lessThan: 41,
           notEqual: 0,
       }
     }});
@@ -100,8 +106,7 @@ class form extends Component {
       this.props.clicked();
     }
 
-  } 
-
+  }
 
   render(){
     //I cannot comment within the return value that is why there are none lower than this.
@@ -111,15 +116,15 @@ class form extends Component {
         <form onSubmit={(e) => this.mySubmit(e)} ref="entryForm">
           <div className="form-group">
             <label htmlFor="cost">Cost of Vehicle:</label>
-            <input className={`form-control`} value={this.state.cost} onChange={this.onChange} name="cost" id="cost" type="text" placeholder="Cost *" />
-            <Slider value={this.state.cost} min={1} max={100000} step={1000} onChange={(e) => {
+            <input className={`form-control`} value={this.state.cost} onChange={this.onChange} name="cost" id="cost" type="number" placeholder="Cost *" />
+            <Slider value={this.state.cost} min={0} max={100000} step={1000} onChange={(e) => {
               this.setState({cost: [e]})
             }}/> 
           </div>
           <div className="form-group">
             <label htmlFor="MPG">Fuel Mileage:</label>
-            <input className={`form-control`} value={this.state.MPG} onChange={this.onChange} name="MPG" id="MPG" type="text" placeholder="MPG *" />
-            <Slider value={this.state.MPG} min={1} max={40} step={1} onChange={(e) => {
+            <input className={`form-control`} value={this.state.MPG} onChange={this.onChange} name="MPG" id="MPG" type="number" placeholder="MPG *" />
+            <Slider value={this.state.MPG} min={0} max={40} step={1} onChange={(e) => {
               this.setState({MPG: [e]})
             }}/> 
           </div>

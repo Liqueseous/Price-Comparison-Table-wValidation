@@ -5,13 +5,16 @@
   "homepage": ".",
   "dependencies": {
     "jquery": "^3.2.1",
+    "jquery-ui": "^1.12.1",
     "jquery-validation": "^1.17.0",
+    "rc-slider": "^8.4.1",
     "react": "^16.0.0",
     "react-bootstrap": "^0.31.3",
     "react-dom": "^16.0.0",
     "react-number-format": "^3.0.1",
     "react-router-dom": "^4.2.2",
-    "react-scripts": "1.0.14"
+    "react-scripts": "1.0.14",
+    "react-tabs": "^2.1.1"
   },
   "scripts": {
     "start": "react-scripts start",

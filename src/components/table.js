@@ -44,6 +44,9 @@ class table extends Component {
     //displays the table for the user to see
     return(
       <div>
+       <div className="alert alert-info">
+        <strong>Info!</strong> Verticle column represents MPG, horizontal row represents total cost of vehicle.
+       </div>
         <table className="table table-hover table-bordered table-condensed table-responsive">
           
           <thead className="thead-dark">
@@ -71,7 +74,8 @@ class table extends Component {
                 {this.props.costs.map((cost,key) =>
                   <td key={key}>
 
-                  <NumberFormat value={this.props.calculateCPMile(cost, mpg)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} /> /Mile, {//<NumberFormat value={this.props.calculateCPMonth(cost, mpg)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} /> /Month
+                  <NumberFormat value={this.props.type ? this.props.calculateCPMile(cost, mpg) : this.props.calculateCPMonth(cost, mpg) } displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} /> {this.props.type ? `/Mile` : `/Month`} 
+                  {//<NumberFormat value={this.props.calculateCPMonth(cost, mpg)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} /> /Month
                 }
                   </td>
                 )}

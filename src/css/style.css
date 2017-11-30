@@ -33,6 +33,34 @@
 
 */
 
+.App {
+  width: 100%;
+}
+
+.App-logo {
+  width: 100px;
+  margin: -10px;
+}
+
+.App-header {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #357ebd;
+  height: 100px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
 .table-header {
   background-color:rgb(69, 128, 240);
   color:white;
@@ -67,7 +95,7 @@
   width: 100%; /* Full width */
   height: 100%; /* Full height */
   background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
+  background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
 }
 .btns {
   display: flex;
@@ -137,4 +165,55 @@ input.my-valid-class {
   border-width: 1px;
   border-style: solid;
   box-shadow: -1px -1px 5px chartreuse;
+}
+.check {
+  display: flex;
+  flex-direction: column;
+}
+
+.check input, .check label {
+  display: inline-flex;
+  padding-right: 10px;
+}
+
+.check input {
+  font-size: 12pt;
+}
+
+.Tabs{
+  list-style-type:none;
+  display: flex;
+  align-items: left;
+  justify-content: left;
+  margin-top: 10px;
+  width: 100%;
+  margin-left: -40px;
+}
+.Tab {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.space {
+  padding: 2px;
+}
+.panel, .flist, .pcontent{
+  display: flex;
+  flex-direction: column;
+}
+.price {
+  color: forestgreen;
+}
+.head {
+  font-variant: small-caps;
+  font-weight: bold;
+  color: #357ebd;
+}
+
+.feat {
+  text-indent: 3em;
+}
+
+.text-warning {
+  font-variant: small-caps;
 }

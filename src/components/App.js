@@ -19,6 +19,8 @@
 //Bootstrap documentation: https://getbootstrap.com/docs/4.0/getting-started/introduction/
 //JQuery Documentation: https://api.jquery.com/
 //JQuery Validation Documentation: https://jqueryvalidation.org/documentation/
+//rc-slider: https://www.npmjs.com/package/rc-slider
+//React Tabs: https://github.com/reactjs/react-tabs
 //
 //
 //-------HOW TO COMPILE AND RUN-------
@@ -35,10 +37,16 @@ import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 import $ from 'jquery';
 import 'jquery-validation';
+import 'jquery-ui';
+import Slider from 'rc-slider';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import NumberFormat from 'react-number-format';
 import Table from './table';
 import Form from './form';
-import '../css/App.css';
+import Features from './features';
 import '../css/style.css';
+import 'rc-slider/assets/index.css';
+import logo from '../logo.png';
 
 //This component contains the backbone of the application. It pieces together 
 //all the other components which create the single page app.
@@ -50,13 +58,16 @@ class App extends Component {
     this.state = {
       costs: [],
       MPGs: [],
+      AC: [],
+      pW: [],
+      hS: [],
+      sR: [],
+      gear: [],
+      other: [],
       formshow:false,
       MPY: '',
       PPG: '',
-      errors: {
-				MPY: true,
-				PPG: true,
-			},
+      tabIndex: 0,
     };
   }
 
@@ -105,26 +116,19 @@ class App extends Component {
   clicked = (e) => {
     this.setState({formShow: !this.state.formShow});
   }
-  
-  //creates an entry in our array that way it can be mapped and dsiplayed.
-  createEntry = (cost, MPG) => {
-    const myCosts = this.state.costs;
-    myCosts.push(cost);
-    const myMPGs = this.state.MPGs;
-    myMPGs.push(MPG);
-    
-    this.setState({ costs:myCosts, MPGs:myMPGs });
-  }
 
-  //when a value is changed it will be updated in its state.
-  onChange = (e) => {
-    //Add a not equal to validation method
+  mySubmit = (e) => {
+    e.preventDefault();
+    //Adds a notEqual validation method
     $.validator.addMethod("notEqual", function(value, element, param) {
       return this.optional(element) || value !== param;
     }, "Please specify a different (non-zero) value");
+    //Adds a greater than validation method
+    $.validator.addMethod("greaterThan", function(value, element, param) {
+      return this.optional(element) || value > param;
+    }, "Please specify a positive value");
     //Finds the node modules that need to be altered using jQuery Validation
     const el = findDOMNode(this.refs.mainForm);
-    const but = findDOMNode(this.refs.but);
 
     //Setup our validation rules and make sure the form validates to these rules
     $(el).validate({
@@ -132,57 +136,146 @@ class App extends Component {
       validClass: "my-valid-class",
       rules: {
         MPY: {
-         required: true,
-         number: true,
-         notEqual: 0,
+          required: true,
+          number: true,
+          greaterThan: 0,
+          notEqual: 0,
       },
         PPG: {
-         required: true,
+          required: true,
           number: true,
+          greaterThan: 0,
           notEqual: 0,
-     }
+      }
     }});
-    //disables button if the input is not valid
+      //disables button if the input is not valid
     if ($(el).valid()) {                   // checks form for validity
-      $(but).prop('disabled', false);        // enables button
-     } else {
-       $(but).prop('disabled', true);   // disables button
-     }
-    this.setState({
-      [e.target.name]: [e.target.value]
-    })
+      this.clicked();
+    }
+  }
+  
+  //creates an entry in our array that way it can be mapped and dsiplayed.
+  createEntry = (cost, MPG, AC, pW, hS, sR, gear, other) => {
+    const myCosts = this.state.costs;
+    myCosts.push(cost);
+    const myMPGs = this.state.MPGs;
+    myMPGs.push(MPG);
+    const myAC = this.state.AC;
+    myAC.push(AC);
+    const mypW = this.state.pW;
+    mypW.push(pW);
+    const myhS = this.state.hS;
+    myhS.push(hS);
+    const mysR = this.state.sR;
+    mysR.push(sR);
+    const mygear = this.state.gear;
+    mygear.push(gear);
+    const myother = this.state.other;
+    myother.push(other);
+    
+    this.setState({ costs:myCosts, MPGs:myMPGs, pW:mypW, hS:myhS, sR:mysR, gear:mygear, other:myother });
+  }
+
+  //when a value is changed it will be updated in its state.
+  onChange = (e) => {
+    //Adds a notEqual validation method
+    $.validator.addMethod("notEqual", function(value, element, param) {
+      return this.optional(element) || value !== param;
+    }, "Please specify a different (non-zero) value");
+    //Adds a greater than validation method
+    $.validator.addMethod("greaterThan", function(value, element, param) {
+      return this.optional(element) || value > param;
+    }, "Please specify a positive value");
+    //Finds the node modules that need to be altered using jQuery Validation
+    const el = findDOMNode(this.refs.mainForm);
+
+    //Setup our validation rules and make sure the form validates to these rules
+    $(el).validate({
+      errorClass: "my-error-class",
+      validClass: "my-valid-class",
+      rules: {
+        MPY: {
+          required: true,
+          number: true,
+          greaterThan: 0,
+          notEqual: 0,
+      },
+        PPG: {
+          required: true,
+          number: true,
+          greaterThan: 0,
+          notEqual: 0,
+      }
+    }});
+      // checks form for validity
+      $(el).valid()
+      this.setState({
+        [e.target.name]: [e.target.value]
+      })
+    
     console.log(`${e.target.name}: ${e.target.value}`);
   }
 
   render() {
+
     //This contains our main form along with error indications. Below that is our entry form which when displayed overlays the screen.
     //Below all this is our table of values
     //I cannot comment within the return value that is why there are none lower than this.
     return (
       <div className="App">
         <header className="App-header">
-          <h1 className="App-title">Car Comparison Table</h1>
+          <h1 className="App-title">Car Inspector</h1>
+          <img src={logo} className="App-logo"/>
         </header>
         <div className="content">
           <form ref="mainForm">
             <div className="form-group">
               <label htmlFor="MPY">Miles Per Year:</label>
-              <input className="form-control" value={this.state.MPY} onChange={this.onChange} name="MPY" id="MPY" type="text" placeholder="Miles Per Year" required/>
+              <input className="form-control" value={this.state.MPY} onChange={this.onChange} name="MPY" id="MPY" type="text" placeholder="Miles Per Year *" required/>
+              <Slider value={this.state.MPY} min={1} max={100000} step={1000} onChange={(e) => {
+                this.setState({MPY: [e]})
+              }} /> 
             </div>
             <div className="form-group">
               <label htmlFor="PPG">Price Per Gallon:</label>
-              <input className="form-control" value={this.state.PPG} onChange={this.onChange} name="PPG" id="PPG" type="text" placeholder="Price Per Gallon" required/>
+              <input className="form-control" value={this.state.PPG} onChange={this.onChange} name="PPG" id="PPG" type="text" placeholder="Price Per Gallon *" required/>
+              <Slider value={this.state.PPG} min={1} max={5} step={0.1} onChange={(e) => {
+                this.setState({PPG: [e]})
+              }}/> 
             </div>
           </form>
           <div className="ctr">
-            <button className="btn btn-primary btn-lg" ref="but" onClick={this.clicked} >Add Entry</button>
+            <button className="btn btn-primary btn-lg" ref="but" onClick={this.mySubmit} >Add Entry</button>
           </div>
-          {this.state.formShow ? <Form createEntry={this.createEntry} clicked={this.clicked} /> :<p></p>}
+          {this.state.formShow && <Form createEntry={this.createEntry} clicked={this.clicked} />}
           
-          <div className="alert alert-info">
-            <strong>Info!</strong> Verticle column represents MPG, horizontal row represents total cost of vehicle.
-          </div>
-          <Table costs={this.state.costs} MPGs={this.state.MPGs} MPY={this.state.MPY} PPG={this.state.PPG} calculateCPMile={this.calculateCPMile} calculateCPMonth={this.calculateCPMonth}/>
+            <Tabs selectedIndex={this.state.tabIndex} onSelect={tabIndex => this.setState({ tabIndex })}>
+              <TabList className="Tabs">
+                <Tab className="Tab"><button className="btn btn-info btn-sm">Cost Per Mile Table</button></Tab>
+                <Tab className="Tab"><button className="btn btn-info btn-sm">Cost Per Month Table</button ></Tab>
+                {this.state.costs.map((e,key) => 
+                  <Tab className="Tab"> 
+                    <button className="btn btn-info btn-sm">
+                      {<NumberFormat value={parseFloat(e,10)} displayType={'text'} thousandSeparator={true} decimalScale={2} fixedDecimalScale={true} prefix={'$'} />} , {this.state.MPGs[key]} mpg
+                    </button>
+                    {//<button className="btn btn-danger btn-sm" onClick={(e) => this.deleteTab(this.state.tabIndex)}>X</button>
+                    }
+                  </Tab>
+                )}
+              </TabList>
+
+              <TabPanel>
+                <Table costs={this.state.costs} MPGs={this.state.MPGs} MPY={this.state.MPY} PPG={this.state.PPG} calculateCPMile={this.calculateCPMile} type={true} calculateCPMonth={this.calculateCPMonth}/>
+              </TabPanel>
+              <TabPanel>
+                <Table costs={this.state.costs} MPGs={this.state.MPGs} MPY={this.state.MPY} PPG={this.state.PPG} calculateCPMile={this.calculateCPMile} type={false} calculateCPMonth={this.calculateCPMonth}/>
+              </TabPanel>
+              {this.state.costs.map((e,key) => 
+                <TabPanel>
+                <Features cost={e} MPG={this.state.MPGs[key]} AC={this.state.AC[key]} pW={this.state.pW[key]} hS={this.state.hS[key]} sR={this.state.sR[key]} gear={this.state.gear[key]} other={this.state.other[key]}/>
+                </TabPanel>
+              )}
+            </Tabs>
         </div>
       </div>
     );
